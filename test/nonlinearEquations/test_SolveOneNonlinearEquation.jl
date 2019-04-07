@@ -1,16 +1,8 @@
 module test_SolveOneNonlinearEquation
 
-import ..ModiaMath
-
-#  Desired:
-#    using Test
-#    using LinearAlgebra
-#    using Unitful
-#
-#  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using ..ModiaMath.Test
+import ..ModiaMath: solveOneNonlinearEquation
+using ..Test
 @eval using Printf
-using ..ModiaMath: solveOneNonlinearEquation
 
 
 @testset "ModiaMath.NonlinearEquations: test solveOneNonlinearEquation" begin

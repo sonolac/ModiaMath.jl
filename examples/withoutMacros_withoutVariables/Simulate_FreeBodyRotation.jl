@@ -9,6 +9,8 @@ Simulate body with unconstrained rotational motion in 3D (using quaternions; = i
 module Simulate_FreeBodyRotation
 
 import ..ModiaMath
+import ..LinearAlgebra
+import ..StaticArrays
 include(joinpath("models", "FreeBodyRotation.jl"))
 import .FreeBodyRotation
 

@@ -1,13 +1,7 @@
 module test_Variables
 
 import ..ModiaMath
-
-# Desired:
-#   using Test
-#
-# In order that Test needs not to be defined in the user environment, it is included via ModiaMath:
-using ..ModiaMath.Test
-
+using ..Test
 
 mutable struct Revolute <: ModiaMath.AbstractComponentWithVariables
     _internal::ModiaMath.ComponentInternal

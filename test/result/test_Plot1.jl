@@ -1,12 +1,7 @@
 module test_Plot1
 
 import ..ModiaMath
-
-# Desired:
-#   using Test
-#
-# In order that Test needs not to be defined in the user environment, it is included via ModiaMath:
-using ..ModiaMath.Test
+using ..Test
 t = range(0.0, stop=10.0, length=100)
 
 

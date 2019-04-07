@@ -1,16 +1,9 @@
 module test_Interpolation
 
 import ..ModiaMath
-
-#  Desired:
-#    using Test
-#    using LinearAlgebra
-#    using Unitful
-#
-#  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using ..ModiaMath.Test
-using ..ModiaMath.LinearAlgebra
-using ..ModiaMath.Unitful
+using ..Test
+using ..LinearAlgebra
+using ..Unitful
 
 
 

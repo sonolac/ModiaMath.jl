@@ -31,14 +31,8 @@ For testing:
 module FreeBodyRotation
 
 import ..ModiaMath
-using  ..ModiaMath.LinearAlgebra    # included via ModiaMath, to avoid requirement to add it in the standard environment
-
-
-# Desired:
-#   using StaticArrays
-#
-# In order that StaticArrays need not to be defined in the user environment, it is included via ModiaMath:
-using ..ModiaMath.StaticArrays
+using  ..LinearAlgebra
+using  ..StaticArrays
 
 
 mutable struct Model <: ModiaMath.AbstractSimulationModel

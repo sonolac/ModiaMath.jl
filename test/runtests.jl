@@ -1,12 +1,11 @@
 module Runtests
 
 import ..ModiaMath
-
-# Desired:
-#   using Test
-#
-# In order that Test need not to be defined in the user environment, it is included via ModiaMath:
-using ..ModiaMath.Test
+using Test
+using Unitful
+using DataFrames
+using LinearAlgebra
+using StaticArrays
 
 
 @testset "Test ModiaMath" begin

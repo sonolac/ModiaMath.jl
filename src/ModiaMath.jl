@@ -79,51 +79,18 @@ export RealVariable, RealScalar, RealSVector, RealSVector3
 export plot
 
 
-# Types
-"""
-    type ModiaMath.AbstractSimulationModel
-
-Struct that is used as simulation model (has field: simulationState)
-"""
-abstract type AbstractSimulationModel end
-
-
-"""
-    type ModiaMath.AbstractComponentWithVariables
-
-Struct that contains ModiaMath.AbstractVariables as field or as field
-in a sub-struct.
-"""
-abstract type AbstractComponentWithVariables end
-
-" The internal part of a component (has at least fields \"name\" and \"within\") "
-abstract type AbstractComponentInternal end
-
-
-"""
-    type ModiaMath.AbstractVariable <: ModiaMath.AbstractComponentWithVariables
-
-A Variable used as element of the DAE model description and is
-included in the result (if no residue)
-"""
-abstract type AbstractVariable <: AbstractComponentWithVariables end
-
-
-"""
-    ModiaMath.AbstractRealVariable <: ModiaMath.AbstractVariable
-
-A real [`ModiaMath.AbstractVariable`](@ref) (either scalar or array)
-"""
-abstract type AbstractRealVariable <: AbstractVariable end
-
-
-
-
+# Import packages that are used in examples and tests
+# (in order that there are no requirements on the environment
+#  in which the examples and tests are executed).
+using StaticArrays
 
 getVariableAndResidueValues(extraInfo::Any) = nothing    # Return a variable value and a residue value table of nonlinear solver (for error message)
 
 
 # include sub-modules and make symbols available that have been exported in sub-modules
+include("TypesAndStructs.jl")
+using .TypesAndStructs
+
 include("Utilities.jl")
 using .Utilities
 
@@ -155,17 +122,6 @@ using .Variables
 
 include("ModiaToModiaMath.jl")
 using .ModiaToModiaMath
-
-
-
-# Import packages that are used in examples and tests
-# (in order that there are no requirements on the environment
-#  in which the examples and tests are executed).
-import DataFrames
-import StaticArrays
-import Unitful
-import LinearAlgebra
-import Test
 
 
 end # module

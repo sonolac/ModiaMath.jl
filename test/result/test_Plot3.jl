@@ -1,15 +1,8 @@
 module test_Plot3
 
 import ..ModiaMath
-
-#  Desired:
-#    using Test
-#    using Unitful
-#
-#  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-
-using ..ModiaMath.Test
-using ..ModiaMath.Unitful
+using ..Test
+using ..Unitful
 
 t = range(0.0, stop=10.0, length=100)
 result = Dict{AbstractString,Any}()

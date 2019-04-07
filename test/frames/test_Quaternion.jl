@@ -1,16 +1,9 @@
 module test_Quaternion
 
 import ..ModiaMath
-
-#  Desired:
-#    using Test
-#    using StaticArrays
-#    using Unitful
-#
-#  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using ..ModiaMath.Test
-using ..ModiaMath.StaticArrays
-using ..ModiaMath.Unitful
+using ..Test
+using ..StaticArrays
+using ..Unitful
 
 
 angle1 = pi / 2

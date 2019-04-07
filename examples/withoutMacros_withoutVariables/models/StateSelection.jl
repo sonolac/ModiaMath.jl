@@ -11,7 +11,7 @@ This model is mainly used to test initialization
 module StateSelection
 
 import ..ModiaMath
-using  ..ModiaMath.LinearAlgebra
+using  ..LinearAlgebra
 
 mutable struct Model <: ModiaMath.AbstractSimulationModel
     simulationState::ModiaMath.SimulationState

@@ -12,30 +12,14 @@ Log model evaluations.
 Martin Otter, [DLR - Institute of System Dynamics and Control](https://www.dlr.de/sr/en)
 """
 module Logging
-
-import ..ModiaMath 
 @eval using Printf
 
-export Logger, setLog!, setAllLogCategories!, setLogCategories!
+import ..TypesAndStructs: Logger, SimulationStatistics
+
+export setLog!, setAllLogCategories!, setLogCategories!
 export isLogStatistics, isLogProgress, isLogInfos, isLogWarnings, isLogEvents
 export logOn!, logOff!, setLogCategories
-export SimulationStatistics, reInitializeStatistics!, set_nResultsForSimulationStatistics!
-
-"""
-    mutable struct Logger - Log model evaluations
-"""
-mutable struct Logger
-    log::Bool           # = true, if logging
-
-    # log categories
-    statistics::Bool
-    progress::Bool
-    infos::Bool
-    warnings::Bool
-    events::Bool
-
-    Logger() = new(false, true, true, true, true, true)
-end
+export reInitializeStatistics!, set_nResultsForSimulationStatistics!
 
 function setLog!(logger::Logger, log::Bool)
     logger.log = log
@@ -159,70 +143,6 @@ Return true, if logger settings require to print **event** messages of the model
 or ModiaMath.Logger).
 """
 isLogEvents(logger::Logger)     = logger.log && logger.events
-
-
-"""
-    mutable struct SimulationStatistics - Collect statistics of the last simulation run.
-
-The following data is stored in this structure:
-
-- `structureOfDAE`: Structure of DAE
-- `cpuTimeInitialization`: CPU-time for initialization
-- `cpuTimeIntegration`: CPU-time for integration
-- `startTime`: start time of the integration
-- `stopTime`: stop time of the integration
-- `interval`: communication interval of the integration
-- `tolerance`: relative tolerance used for the integration
-- `nEquations`: number of equations (length of y and of yp)
-- `nConstraints`: number of constraint equations
-- `nResults`: number of time points stored in result data structure
-- `nSteps`: number of (successful) steps
-- `nResidues`: number of calls to compute residues (includes residue calls for Jacobian)
-- `nZeroCrossing`: number of calls to compute zero crossings
-- `nJac`: number of calls to compute Jacobian
-- `nTimeEvents`: number of time events
-- `nRestartEvents`: number of events with integrator restart
-- `nErrTestFails`: number of fails of error tests
-- `h0`: stepsize used at the first step
-- `hMin`: minimum integration stepsize
-- `hMax`: maximum integration stepsize
-- `orderMax`: maximum integration order
-- `sparseSolver` = true: if sparse solver used, otherwise dense solver
-- `nGroups`: if sparseSolver, number of column groups to compute Jacobian
-  (e.g. if nEquations=100, nGroups=5, then 5+1=6 model evaluations are needed
-  to compute the Jacobian numerically, instead of 101 model evaluations without
-  taking the sparseness structure into account).
-"""
-mutable struct SimulationStatistics
-    structureOfDAE::Any
-    cpuTimeInitialization::Float64
-    cpuTimeIntegration::Float64
-    startTime::Float64
-    stopTime::Float64
-    interval::Float64
-    tolerance::Float64
-    nEquations::Int
-    nConstraints::Union{Int,Missing}
-    nResults::Int
-    nSteps::Int
-    nResidues::Int
-    nZeroCrossings::Int
-    nJac::Int
-    nTimeEvents::Int
-    nStateEvents::Int
-    nRestartEvents::Int
-    nErrTestFails::Int
-    h0::Float64
-    hMin::Float64
-    hMax::Float64
-    orderMax::Int
-    sparseSolver::Bool
-    nGroups::Int
-
-    SimulationStatistics(structureOfDAE, nEquations::Int, nConstraints::Union{Int,Missing}, sparseSolver::Bool, nGroups::Int) =
-    new(structureOfDAE, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, nEquations, nConstraints, 0, 0, 0, 0, 0, 0, 0, 0, 0, floatmax(Float64),
-        floatmax(Float64), 0.0, 0, sparseSolver, nGroups)
-end
 
 function reInitializeStatistics!(stat::SimulationStatistics,
                                  startTime::Float64, stopTime::Float64, interval::Float64, tolerance::Float64)

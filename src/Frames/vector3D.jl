@@ -4,6 +4,7 @@
 # This file is part of module
 #   ModiaMath.Frames (ModiaMath/Frames/_module.jl)
 #
+import ..StaticArrays: SVector, @SMatrix
 
 """
     const ModiaMath.Vector3D = SVector{3,Float64}

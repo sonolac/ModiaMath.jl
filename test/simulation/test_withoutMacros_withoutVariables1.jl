@@ -10,12 +10,9 @@ and without Variables and without Macros
 module test_withoutMacros_withoutVariables1
 
 import ..ModiaMath
-
-# Desired:
-#   using Test
-#
-# In order that Test needs not to be defined in the user environment, it is included via ModiaMath:
-using ..ModiaMath.Test
+using ..Test
+using ..LinearAlgebra
+using ..StaticArrays
 
 
 include(joinpath(ModiaMath.path, "examples", "withoutMacros_withoutVariables", "models", "PT1.jl"))

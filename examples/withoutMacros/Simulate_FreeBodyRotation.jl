@@ -34,8 +34,8 @@ Reference Modelica model:
 module Simulate_FreeBodyRotation
 
 using ..ModiaMath
-using ..ModiaMath.LinearAlgebra  # included via ModiaMath, to avoid requirement to add it in the standard environment
-using ..ModiaMath.StaticArrays   # included via ModiaMath, to avoid requirement to add it in the standard environment
+using ..LinearAlgebra  # included via ModiaMath, to avoid requirement to add it in the standard environment
+using ..StaticArrays   # included via ModiaMath, to avoid requirement to add it in the standard environment
 
 
 #            q[1] = 0.1 changed to 0.08908708063747484

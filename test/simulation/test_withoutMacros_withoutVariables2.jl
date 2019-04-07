@@ -10,12 +10,7 @@ Test function ModiaMath.simulate(..) with models that have events
 module  test_withoutMacros_withoutVariables2
 
 import ..ModiaMath
-
-# Desired:
-#   using Test
-#
-# In order that Test needs not to be defined in the user environment, it is included via ModiaMath:
-using ..ModiaMath.Test
+using ..Test
 
 
 

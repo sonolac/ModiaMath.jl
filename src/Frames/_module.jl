@@ -139,9 +139,9 @@ export planarRotationAngle, eAxis
 export Path, t_pathEnd, interpolate, interpolate_r
 export skew
 
-using StaticArrays
-import ..ModiaMath
-using LinearAlgebra
+#import ..StaticArrays
+#import ..ModiaMath
+#import ..LinearAlgebra
 
 
 include("vector3D.jl")

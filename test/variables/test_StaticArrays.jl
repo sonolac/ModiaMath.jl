@@ -7,17 +7,6 @@ module test_StaticArrays
 
 import ..ModiaMath
 
-#  Desired:
-#    using  StaticArrays
-#    import DataFrames
-#
-#  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using  ..ModiaMath.StaticArrays
-import ..ModiaMath.DataFrames
-
-
-
-
 function A_add_B!(C, A, B)
     for i = 1:length(A)
         C[i] = A[i] + B[i]
