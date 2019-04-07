@@ -1,9 +1,9 @@
 module test_Interpolation
 
 import ..ModiaMath
-using ..Test
-using ..LinearAlgebra
-using ..Unitful
+using Test
+using LinearAlgebra
+using Unitful
 
 
 

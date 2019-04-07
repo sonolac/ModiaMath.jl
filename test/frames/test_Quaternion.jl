@@ -1,9 +1,9 @@
 module test_Quaternion
 
 import ..ModiaMath
-using ..Test
-using ..StaticArrays
-using ..Unitful
+using Test
+using StaticArrays
+using Unitful
 
 
 angle1 = pi / 2

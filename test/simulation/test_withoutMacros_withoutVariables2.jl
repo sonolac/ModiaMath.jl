@@ -10,7 +10,7 @@ Test function ModiaMath.simulate(..) with models that have events
 module  test_withoutMacros_withoutVariables2
 
 import ..ModiaMath
-using ..Test
+using Test
 
 
 

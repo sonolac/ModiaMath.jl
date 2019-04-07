@@ -1,7 +1,7 @@
 module test_Plot7
 
 import ..ModiaMath
-using ..Test
+using Test
 t = range(0.0, stop=10.0, length=100)
 
 

@@ -2,11 +2,6 @@ module Runtests
 
 import ..ModiaMath
 using Test
-using Unitful
-using DataFrames
-using LinearAlgebra
-using StaticArrays
-
 
 @testset "Test ModiaMath" begin
     include(joinpath("result", "_includes.jl"))

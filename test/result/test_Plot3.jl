@@ -1,8 +1,8 @@
 module test_Plot3
 
 import ..ModiaMath
-using ..Test
-using ..Unitful
+using Test
+using Unitful
 
 t = range(0.0, stop=10.0, length=100)
 result = Dict{AbstractString,Any}()

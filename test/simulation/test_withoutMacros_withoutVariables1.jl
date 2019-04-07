@@ -10,9 +10,9 @@ and without Variables and without Macros
 module test_withoutMacros_withoutVariables1
 
 import ..ModiaMath
-using ..Test
-using ..LinearAlgebra
-using ..StaticArrays
+using Test
+using LinearAlgebra
+using StaticArrays
 
 
 include(joinpath(ModiaMath.path, "examples", "withoutMacros_withoutVariables", "models", "PT1.jl"))

@@ -1,7 +1,7 @@
 module test_Variables
 
 import ..ModiaMath
-using ..Test
+using Test
 
 mutable struct Revolute <: ModiaMath.AbstractComponentWithVariables
     _internal::ModiaMath.ComponentInternal

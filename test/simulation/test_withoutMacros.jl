@@ -4,9 +4,9 @@
 module test_withoutMacros
 
 import ..ModiaMath
-using ..Test
-using ..LinearAlgebra
-using ..StaticArrays
+using Test
+using LinearAlgebra
+using StaticArrays
 
 
 include(joinpath(ModiaMath.path, "examples", "withoutMacros", "Simulate_Pendulum.jl"))

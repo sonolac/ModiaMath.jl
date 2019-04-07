@@ -1,7 +1,7 @@
 module test_SolveOneNonlinearEquation
 
 import ..ModiaMath: solveOneNonlinearEquation
-using ..Test
+using Test
 @eval using Printf
 
 

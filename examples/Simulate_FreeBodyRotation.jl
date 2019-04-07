@@ -34,8 +34,8 @@ Reference Modelica model:
 module Simulate_FreeBodyRotation
 
 using ..ModiaMath
-using ..LinearAlgebra
-using ..StaticArrays
+using LinearAlgebra
+using StaticArrays
 
 
 #            q[1] = 0.1 changed to 0.08908708063747484

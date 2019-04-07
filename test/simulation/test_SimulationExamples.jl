@@ -4,9 +4,9 @@
 module test_SimulationExamples
 
 import ..ModiaMath
-using ..Test
-using ..LinearAlgebra
-using ..StaticArrays
+using Test
+using LinearAlgebra
+using StaticArrays
 
 
 include(joinpath(ModiaMath.path, "examples", "Simulate_Pendulum.jl"))

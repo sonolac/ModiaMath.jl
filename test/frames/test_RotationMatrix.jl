@@ -1,10 +1,10 @@
 module test_RotationMatrix
 
 import ..ModiaMath
-using ..Test
-using ..LinearAlgebra
-using ..StaticArrays
-using ..Unitful
+using Test
+using LinearAlgebra
+using StaticArrays
+using Unitful
 
 
 angle1 = pi / 2
