@@ -5,7 +5,7 @@
     module PendulumDAE
 
 DAE-model of a mass point attached via a rod to a revolute joint (GGL formulation).
-    
+
 Starting equations (der(xx) = dxx/dt):
 
      der(x) = vx
@@ -19,26 +19,26 @@ Gear/Gupta/Leimkuhler equations:
    # mue    = der(mue_int)
    # g      = x*x + y*y - L*L
    # G      = dg/d[x;y] = [2*x 2*y]
-   
+
    der([x,y]) = [vx,vy] - G'*mue
    0 = m*der(vx) + lambda*x
    0 = m*der(vy) + lambda*y + m*g
    0 = x*x + y*y - L*L
    0 = 2*x*vx + 2*y*vy
-   
+
 Arguments of getResidues! function:
    _x    = [x; y; vx; vy; lambda_int; mue_int]
    _derx = [der(x); der(y); der(vx); der(vy); lambda; mue]
 
-Modelica model: ModelicaReferenceModels.ODAEs.Pendulum   
+Modelica model: ModelicaReferenceModels.ODAEs.Pendulum
 """
 module PendulumDAE
 
-import ModiaMath
+import ..ModiaMath
 
 mutable struct Model <: ModiaMath.AbstractSimulationModel
     simulationState::ModiaMath.SimulationState
-   
+
     # Parameters
     L::Float64
     m::Float64
@@ -48,20 +48,20 @@ mutable struct Model <: ModiaMath.AbstractSimulationModel
         @assert(L > 0.0)
         @assert(m > 0.0)
         @assert(-L <= x0 <= L)
-        @assert(-L <= y0 <= L)      
+        @assert(-L <= y0 <= L)
         simulationState = ModiaMath.SimulationState("PendulumDAE", getModelResidues!, [x0,y0,1.0,1.0,0.0,0.0], getVariableName;
                                 x_fixed=[x_fixed, false, x_fixed, false, false, false],
                                 is_constraint = [false,false,false,false,true,true],
 								has_constraintDerivatives = true)
         new(simulationState, L, m, g)
     end
-end 
+end
 
 getVariableName(model, vcat, vindex) = ModiaMath.getVariableName(model, vcat, vindex;
                                                          xNames=["x", "y", "vx", "vy", "lambda_int", "mue_int"],
-                                                         derxNames=["der(x)", "der(y)", "der(vx)", "der(vy)", "lambda", "mue"]) 
-                   
-function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})   
+                                                         derxNames=["der(x)", "der(y)", "der(vx)", "der(vy)", "lambda", "mue"])
+
+function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})
     x      = _x[1]
     y      = _x[2]
     vx     = _x[3]
@@ -75,7 +75,7 @@ function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vec
     _r[2] = _derx[2] - vy + y * mue
     _r[3] = m.m * dervx + lambda * x
     _r[4] = m.m * dervy + lambda * y + m.m * m.g
-	
+
 	if ModiaMath.compute_der_fc(m)
 		_r[5] = x * _derx[1] + y * _derx[2]
 		_r[6] = x * dervx + y * dervy + vx*vx + vy*vy

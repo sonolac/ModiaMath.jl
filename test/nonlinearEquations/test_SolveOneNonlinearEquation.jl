@@ -1,19 +1,19 @@
 module test_SolveOneNonlinearEquation
 
-import ModiaMath
+import ..ModiaMath
 
 #  Desired:
 #    using Test
 #    using LinearAlgebra
 #    using Unitful
-#  
+#
 #  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using ModiaMath.Test
+using ..ModiaMath.Test
 @eval using Printf
-using ModiaMath: solveOneNonlinearEquation
+using ..ModiaMath: solveOneNonlinearEquation
 
 
-@testset "ModiaMath.NonlinearEquations: test solveOneNonlinearEquation" begin 
+@testset "ModiaMath.NonlinearEquations: test solveOneNonlinearEquation" begin
     # Test from Modelica.Math.Nonlinear.Examples.solveNonlinearEquations1
     y          = zeros(3)
     y_analytic = zeros(3)
@@ -35,7 +35,7 @@ using ModiaMath: solveOneNonlinearEquation
         println("\n... Results of Solve_SingleNonlinearEquations:")
         println("fun", string(i), ":")
         @printf("   analytical zero     = %20.16e\n", y_analytic[i])
-        @printf("   numerical zero      = %20.16e\n", y[i]) 
+        @printf("   numerical zero      = %20.16e\n", y[i])
         @printf("   absolute difference = %20.16e\n", y_analytic[i] - y[i])
         @test isapprox(y[i], y_analytic[i],  atol=1e-12)
     end
@@ -49,7 +49,7 @@ using ModiaMath: solveOneNonlinearEquation
        errorOccured = true
     end
     @test errorOccured
- 
+
 
     # Test tolerance
     yy = solveOneNonlinearEquation(fun1, -0.5, 10.0; tolerance=1e-4)

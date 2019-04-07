@@ -13,7 +13,7 @@ The goal is to solve the same system several times with KINSOL.
 module KINSOL
 
 import Sundials
-import ModiaMath
+import ..ModiaMath
 using LinearAlgebra
 
 @noinline function old_cfunction(f, r, a)

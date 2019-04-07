@@ -8,7 +8,7 @@ Simulate Pendulum as ODE model (version that uses Variables, but no macros)
 """
 module Simulate_Pendulum
 
-using ModiaMath
+using ..ModiaMath
 
 mutable struct PendulumWithoutMacro <: ModiaMath.AbstractComponentWithVariables
     _internal::ModiaMath.ComponentInternal
@@ -23,7 +23,7 @@ mutable struct PendulumWithoutMacro <: ModiaMath.AbstractComponentWithVariables
     # Variables
     phi::ModiaMath.RealScalar
     w::ModiaMath.RealScalar
-    a::ModiaMath.RealScalar 
+    a::ModiaMath.RealScalar
 
     function PendulumWithoutMacro(;L=1.0, m=1.0, d=0.1, g=9.81, phi0_deg=90)
         this = new(ModiaMath.ComponentInternal(:PendulumWithoutMacro, nothing))
@@ -43,27 +43,27 @@ mutable struct PendulumWithoutMacro <: ModiaMath.AbstractComponentWithVariables
         w   = ModiaMath.RealScalar(start=0.0, unit="rad/s", fixed=true, info="Relative angular velocity", integral=phi, numericType=ModiaMath.XD_EXP)
         ModiaMath.initComponent!(this, w, :w)
 
-        a   = ModiaMath.RealScalar(unit="rad/s^2", info="Relative angular acceleration", integral=w, numericType=ModiaMath.DER_XD_EXP) 
+        a   = ModiaMath.RealScalar(unit="rad/s^2", info="Relative angular acceleration", integral=w, numericType=ModiaMath.DER_XD_EXP)
         ModiaMath.initComponent!(this, a, :a)
 
         return this
     end
 end
 
-function ModiaMath.computeVariables!(p::PendulumWithoutMacro, sim::ModiaMath.SimulationState)  
+function ModiaMath.computeVariables!(p::PendulumWithoutMacro, sim::ModiaMath.SimulationState)
     L = p.L
     m = p.m
     d = p.d
     g = p.g
     phi = p.phi.value
     w   = p.w.value
-   
+
     p.a.value = (-m * g * L * sin(phi) - d * w) / (m * L^2)
 end
 
 simulationModel = ModiaMath.SimulationModel(PendulumWithoutMacro(L=0.8, m=0.5, d=0.2), stopTime=5.0)
 #ModiaMath.print_ModelVariables(simulationModel)
-result = ModiaMath.simulate!(simulationModel, log=true) 
+result = ModiaMath.simulate!(simulationModel, log=true)
 
 ModiaMath.plot(result, [:phi, :w, :a])
 

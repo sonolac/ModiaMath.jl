@@ -9,13 +9,13 @@ and without Variables and without Macros
 """
 module test_withoutMacros_withoutVariables1
 
-import ModiaMath
+import ..ModiaMath
 
 # Desired:
 #   using Test
 #
 # In order that Test needs not to be defined in the user environment, it is included via ModiaMath:
-using ModiaMath.Test
+using ..ModiaMath.Test
 
 
 include(joinpath(ModiaMath.path, "examples", "withoutMacros_withoutVariables", "models", "PT1.jl"))
@@ -61,10 +61,10 @@ import .StateSelection
 
         @test isapprox(result["x[1]"], xExact    ; atol=10 * tolerance )
         @test isapprox(result["der(x[1])"], der_xExact; atol=100 * tolerance )
-        @test m.simulationState.statistics.sparseSolver == false 
+        @test m.simulationState.statistics.sparseSolver == false
 
     end
-   
+
     @testset "Simulate PT1 with tolerance = 1e-8 and log=true" begin
         tolerance = 1.0e-8
         result = ModiaMath.simulate!(m, stopTime=stopTime, log=true, interval=interval, tolerance=tolerance)
@@ -105,7 +105,7 @@ import .StateSelection
         @test isapprox(dervx[end], -6.97155 ; atol=1e-5 )
         @test isapprox(dervy[end],  0.977022; atol=1e-5 )
     end
-   
+
 
     @testset "Simulate PendulumDAE with x_fixed=true" begin
         stopTime  = 2.0
@@ -126,7 +126,7 @@ import .StateSelection
         @test isapprox(dervx[end], -4.69952 ; atol=1e-5 )
         @test isapprox(dervy[end],  0.01497 ; atol=1e-5 )
     end
-   
+
     @testset "Simulate FreeBodyRotation" begin
         stopTime  = 5.0
         tolerance = 1e-8
@@ -149,8 +149,8 @@ import .StateSelection
 		f3 = result["f[3]"][end]
 
         @test isapprox(f3[end], 9.81; atol=1e-3 )
-    end   
-end 
+    end
+end
 
 include(joinpath(ModiaMath.path, "examples", "withoutMacros_withoutVariables", "Simulate_PT1.jl"))
 include(joinpath(ModiaMath.path, "examples", "withoutMacros_withoutVariables", "Simulate_PendulumODE.jl"))

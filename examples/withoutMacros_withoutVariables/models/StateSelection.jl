@@ -10,12 +10,12 @@ This model is mainly used to test initialization
 """
 module StateSelection
 
-import ModiaMath
-using  ModiaMath.LinearAlgebra
+import ..ModiaMath
+using  ..ModiaMath.LinearAlgebra
 
 mutable struct Model <: ModiaMath.AbstractSimulationModel
     simulationState::ModiaMath.SimulationState
-   
+
     # Parameters
     n::Vector{Float64}
     m::Float64
@@ -32,14 +32,14 @@ mutable struct Model <: ModiaMath.AbstractSimulationModel
                                 hev=1e-4)
         new(simulationState, n, m, g, s0, v0)
     end
-end 
+end
 
-   
+
 getVariableName(model, vcat, vindex) = ModiaMath.getVariableName(model, vcat, vindex;
                                                 xNames=["s", "f[1]", "f[2]", "f[3]", "sd", "der_der_r[1]","der_der_r[2]","der_der_r[3]",
-                                                             "der_der_s", "der_v[1]", "der_v[2]", "der_v[3]"]) 
-                   
-function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})   
+                                                             "der_der_s", "der_v[1]", "der_v[2]", "der_v[3]"])
+
+function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})
     # map x
     s  = _x[1]
     f  = _x[2:4]
@@ -51,12 +51,12 @@ function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vec
 
     # map derx
     ders  = _derx[1]
-    dersd = _derx[5] 
-     
+    dersd = _derx[5]
+
     # compute residues
     _r[1]    = sd - ders
-    _r[2:4]  = m.n * der_der_s - der_der_r 
-    _r[5:7]  = der_der_r - der_v 
+    _r[2:4]  = m.n * der_der_s - der_der_r
+    _r[5:7]  = der_der_r - der_v
     _r[8:10] = f - m.m*g - m.m * der_v
     _r[11]   = dot(m.n, f)
     _r[12]   = der_der_s - dersd

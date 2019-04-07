@@ -33,8 +33,8 @@ Reference Modelica model:
 """
 module Simulate_FreeBodyRotation
 
-using ModiaMath
-using ModiaMath.LinearAlgebra   # included via ModiaMath, to avoid requirement to add it in the standard environment
+using ..ModiaMath
+using ..ModiaMath.LinearAlgebra   # included via ModiaMath, to avoid requirement to add it in the standard environment
 
 
 
@@ -42,7 +42,7 @@ using ModiaMath.LinearAlgebra   # included via ModiaMath, to avoid requirement t
 #   using StaticArrays
 #
 # In order that StaticArrays need not to be defined in the user environment, it is included via ModiaMath:
-using ModiaMath.StaticArrays
+using ..ModiaMath.StaticArrays
 
 
 #            q[1] = 0.1 changed to 0.08908708063747484

@@ -1,17 +1,15 @@
 module test_Plot4
 
-import ModiaMath
+import ..ModiaMath
 
 #  Desired:
 #    using Test
 #    using Unitful
-#  
+#
 #  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using ModiaMath.Test
+using ..ModiaMath.Test
+using ..ModiaMath.Unitful
 t = range(0.0, stop=10.0, length=100)
-
-
-using ModiaMath.Unitful
 
 result = Dict{AbstractString,Any}()
 result["time"] = t * u"s"

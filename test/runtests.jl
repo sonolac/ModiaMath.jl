@@ -1,12 +1,12 @@
 module Runtests
 
-import ModiaMath
+import ..ModiaMath
 
 # Desired:
 #   using Test
-# 
+#
 # In order that Test need not to be defined in the user environment, it is included via ModiaMath:
-using ModiaMath.Test
+using ..ModiaMath.Test
 
 
 @testset "Test ModiaMath" begin

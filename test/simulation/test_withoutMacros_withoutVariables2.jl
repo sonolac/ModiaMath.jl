@@ -9,13 +9,13 @@ Test function ModiaMath.simulate(..) with models that have events
 """
 module  test_withoutMacros_withoutVariables2
 
-import ModiaMath
+import ..ModiaMath
 
 # Desired:
 #   using Test
 #
 # In order that Test needs not to be defined in the user environment, it is included via ModiaMath:
-using ModiaMath.Test
+using ..ModiaMath.Test
 
 
 
@@ -60,11 +60,11 @@ import .IdealClutch
         w1_end = result["inertia1.w"][end]
 		w2_end = result["inertia2.w"][end]
 		w_end_required = 38.9277466565
-		
+
         @test isapprox(w1_end, w_end_required; atol=0.001 )
-        @test isapprox(w2_end, w_end_required; atol=0.001 )		 
+        @test isapprox(w2_end, w_end_required; atol=0.001 )
     end
-	
+
 end
 
 include(joinpath(ModiaMath.path, "examples", "withoutMacros_withoutVariables", "Simulate_SimpleStateEvents.jl"))

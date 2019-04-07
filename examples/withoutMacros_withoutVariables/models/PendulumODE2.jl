@@ -8,12 +8,12 @@ ODE-model of a mass point attached via a rod to a revolute joint with 2 states.
 """
 module PendulumODE2
 
-import ModiaMath
+import ..ModiaMath
 
-     
+
 mutable struct Model <: ModiaMath.AbstractSimulationModel
     simulationState::ModiaMath.SimulationState
-   
+
     # Parameters
     L::Float64
     m::Float64
@@ -27,20 +27,20 @@ mutable struct Model <: ModiaMath.AbstractSimulationModel
         simulationState = ModiaMath.SimulationState("PendulumODE2", getModelResidues!, [phi0_deg * pi / 180; 0.0], getVariableName; nw=2)
         new(simulationState, L, m, d, g)
     end
-end 
+end
 
 getVariableName(model, vcat, vindex) = ModiaMath.getVariableName(model, vcat, vindex;
                                                          xNames=["phi"    , "w"],
                                                          derxNames=["der_phi", "der_w"],
-                                                         wNames=["rx", "ry"]) 
+                                                         wNames=["rx", "ry"])
 
-function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})  
+function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})
     phi  = _x[1]
-    w    = _x[2]  
+    w    = _x[2]
     derw = _derx[2]
     _r[1] = w    - _derx[1]
     _r[2] = m.m * m.L^2 * derw + (m.m * m.g * m.L * sin(phi) + m.d * w)
-   
+
     if ModiaMath.isStoreResult(m.simulationState)
         rx =  m.L * sin(phi)
         ry = -m.L * cos(phi)

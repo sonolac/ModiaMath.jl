@@ -28,7 +28,7 @@ export KINSOL, NonlinearEquationsInfo, solveNonlinearEquations!
 export solveOneNonlinearEquation
 
 # using/imports
-import ModiaMath
+import ..ModiaMath
 
 # include code
 include("solveOneNonlinearEquation.jl")

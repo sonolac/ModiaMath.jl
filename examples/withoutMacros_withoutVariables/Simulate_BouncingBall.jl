@@ -8,13 +8,13 @@ Simulate bouncing ball (model with state events and discontinuous change of DAE 
 """
 module Simulate_BouncingBall
 
+import ..ModiaMath
 include(joinpath("models", "BouncingBall.jl"))
 import .BouncingBall
-import ModiaMath
 
 # Simulate
 model  = BouncingBall.Model()
-result = ModiaMath.simulate!(model, stopTime=3.0, log=true) 
+result = ModiaMath.simulate!(model, stopTime=3.0, log=true)
 
 ModiaMath.plot(result, [:h, (:v, :flying)], heading="Simulate_BouncingBall.jl")
 

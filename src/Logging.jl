@@ -13,7 +13,7 @@ Martin Otter, [DLR - Institute of System Dynamics and Control](https://www.dlr.d
 """
 module Logging
 
-import ModiaMath 
+import ..ModiaMath 
 @eval using Printf
 
 export Logger, setLog!, setAllLogCategories!, setLogCategories!
@@ -54,7 +54,7 @@ end
 """
     ModiaMath.setLogCategories!(obj, categories; reinit=true)
 
-Set log categories on obj (of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel, 
+Set log categories on obj (of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel,
 or ModiaMath.Logger) as vector of symbols, e.g. setLogCategories!(simulationModel, [:LogProgess]).
 Supported categories:
 - `:LogStatistics`, print statistics information at end of simulation
@@ -70,12 +70,12 @@ function setLogCategories!(logger::Logger, categories::Vector{Symbol}; reinit=tr
     if reinit
         setAllLogCategories!(logger;default=false)
     end
- 
+
     for c in categories
         if c == :LogStatistics
             logger.statistics = true
         elseif c == :LogProgress
-            logger.progress = true         
+            logger.progress = true
         elseif c == :LogInfos
             logger.infos = true
         elseif c == :LogWarnings
@@ -94,7 +94,7 @@ end
 """
     ModiaMath.logOn!(obj)
 
-Enable logging on `obj` (of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel, 
+Enable logging on `obj` (of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel,
 or ModiaMath.Logger)
 """
 function logOn!(logger::Logger)
@@ -106,7 +106,7 @@ end
 """
     ModiaMath.logOff!(obj)
 
-Disable logging on `obj` (of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel, 
+Disable logging on `obj` (of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel,
 or ModiaMath.Logger)
 """
 function logOff!(logger::Logger)
@@ -135,7 +135,7 @@ isLogProgress(logger::Logger) = logger.log && logger.progress
     ModiaMath.isLogInfos(obj)
 
 Return true, if logger settings require to print **info** messages of the model
-(obj must be of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel, 
+(obj must be of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel,
 or ModiaMath.Logger).
 """
 isLogInfos(logger::Logger)      = logger.log && logger.infos
@@ -145,7 +145,7 @@ isLogInfos(logger::Logger)      = logger.log && logger.infos
     ModiaMath.isLogWarnings(obj)
 
 Return true, if logger settings require to print **warning** messages of the model
-(obj must be of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel, 
+(obj must be of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel,
 or ModiaMath.Logger).
 """
 isLogWarnings(logger::Logger)   = logger.log && logger.warnings
@@ -155,7 +155,7 @@ isLogWarnings(logger::Logger)   = logger.log && logger.warnings
     ModiaMath.isLogEvents(obj)
 
 Return true, if logger settings require to print **event** messages of the model
-(obj must be of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel, 
+(obj must be of type ModiaMath.SimulationState, ModiaMath.AbstractSimulationModel,
 or ModiaMath.Logger).
 """
 isLogEvents(logger::Logger)     = logger.log && logger.events
@@ -225,7 +225,7 @@ mutable struct SimulationStatistics
 end
 
 function reInitializeStatistics!(stat::SimulationStatistics,
-                                 startTime::Float64, stopTime::Float64, interval::Float64, tolerance::Float64) 
+                                 startTime::Float64, stopTime::Float64, interval::Float64, tolerance::Float64)
     stat.cpuTimeInitialization = 0.0
     stat.cpuTimeIntegration    = 0.0
     stat.startTime      = startTime
@@ -244,7 +244,7 @@ function reInitializeStatistics!(stat::SimulationStatistics,
     stat.h0             = floatmax(Float64)
     stat.hMin           = floatmax(Float64)
     stat.hMax           = 0.0
-    stat.orderMax       = 0                                
+    stat.orderMax       = 0
 end
 
 
@@ -253,14 +253,14 @@ Base.print(io::IO, stat::SimulationStatistics) = show(io, stat)
 
 function Base.show(io::IO, stat::SimulationStatistics)
     println(io, "        structureOfDAE = ", stat.structureOfDAE)
-    @printf(io, "        cpuTime        = %.2g s (init: %.2g s, integration: %.2g s)\n", 
-                                           stat.cpuTimeInitialization + stat.cpuTimeIntegration, 
+    @printf(io, "        cpuTime        = %.2g s (init: %.2g s, integration: %.2g s)\n",
+                                           stat.cpuTimeInitialization + stat.cpuTimeIntegration,
                                            stat.cpuTimeInitialization, stat.cpuTimeIntegration)
     println(io, "        startTime      = ", stat.startTime, " s")
     println(io, "        stopTime       = ", stat.stopTime, " s")
     println(io, "        interval       = ", stat.interval, " s")
     println(io, "        tolerance      = ", stat.tolerance)
-    println(io, "        nEquations     = ", stat.nEquations, typeof(stat.nConstraints)!=Missing ? 
+    println(io, "        nEquations     = ", stat.nEquations, typeof(stat.nConstraints)!=Missing ?
                                                                   " (includes " * string(stat.nConstraints) * " constraints)" : "" )
     println(io, "        nResults       = ", stat.nResults)
     println(io, "        nSteps         = ", stat.nSteps)
@@ -276,7 +276,7 @@ function Base.show(io::IO, stat::SimulationStatistics)
     @printf(io, "        hMax           = %.2g s\n", stat.hMax)
     println(io, "        orderMax       = ", stat.orderMax)
     println(io, "        sparseSolver   = ", stat.sparseSolver)
-    
+
     if stat.sparseSolver
         println(io, "        nGroups        = ", stat.nGroups)
     end

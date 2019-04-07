@@ -2,10 +2,10 @@
 # Copyright 2017-2018, DLR Institute of System Dynamics and Control
 
 """
-    module ModiaMath.DAE 
+    module ModiaMath.DAE
 
 Interface between the [`ModiaMath.SimulationEngine`](@ref) and the index 1 DAE model.
-A DAE model is a `struct` that has a required field 
+A DAE model is a `struct` that has a required field
 `simulationState::`[`ModiaMath.SimulationState`](@ref)
 in which the main properties of the DAE model are reported to the simulation engine:
 
@@ -58,7 +58,7 @@ or they can be called on a simulation model
 
 # Main developer
 
-[Martin Otter](https://rmc.dlr.de/sr/de/staff/martin.otter/), 
+[Martin Otter](https://rmc.dlr.de/sr/de/staff/martin.otter/),
 [DLR - Institute of System Dynamics and Control](https://www.dlr.de/sr/en)
 """
 module DAE
@@ -81,7 +81,7 @@ export StructureOfDAE, DAE_LinearDerivativesAndConstraints, DAE_ExplicitDerivati
 # export reinitialize!, eventIteration!, initialize!, getResidues!
 # export computeAndStoreResult!, terminate!, processEvent!, getEventIndicators
 
-import ModiaMath
+import ..ModiaMath
 using  LinearAlgebra
 import DataFrames
 

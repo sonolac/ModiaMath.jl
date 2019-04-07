@@ -5,7 +5,7 @@
     module IdealClutch
 
 Model of a mass controlled by a two-point controller leading to state events.
-  
+
 # Physical model
 
 ```
@@ -56,21 +56,21 @@ is_constraint[2] := false
 is_constraint[3] := engaged
 ------
 
-            
+
 ```
 
 """
 module IdealClutch
 
-import ModiaMath
+import ..ModiaMath
 
 const T1 = 100.0
 const T2 = 300.0
-		
+
 mutable struct Model <: ModiaMath.AbstractSimulationModel
     simulationState::ModiaMath.SimulationState
-   
-    # Parameters   
+
+    # Parameters
     V0::Float64
     J1::Float64
     J2::Float64
@@ -79,49 +79,49 @@ mutable struct Model <: ModiaMath.AbstractSimulationModel
     emf_k::Float64
 	T_next::Float64
 	engaged::Bool
-      
+
     function Model(;V0=10.0, J1 = 0.1, J2 = 0.4, w1_start = 0.0, w2_start = 10.0, R=10.0, C=2.0, emf_k = 0.25)
         simulationState = ModiaMath.SimulationState("IdealClutch", getModelResidues!, [w1_start, w2_start, 0.0], getVariableName;
 		                                            structureOfDAE = ModiaMath.DAE_LinearDerivativesAndConstraints,
 													is_constraint = [false, false, true],
-                                                    nz=1, nw=3)									
-													
+                                                    nz=1, nw=3)
+
         new(simulationState, V0, J1, J2, R, C, emf_k, T1, true)
     end
-end 
+end
 
 getVariableName(model, vcat, vindex) = ModiaMath.getVariableName(model, vcat, vindex;
                                                                  xNames    = ["inertia1.w", "inertia2.w", "integral(clutch.tau)"],
 																 derxNames = ["der(inertia1.w)", "der(inertia2.w)", "clutch.tau"],
                                                                  wNames    = ["capacitor.v", "capacitor.i", "engaged"])
-   
+
 function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vector{Float64}, _r::Vector{Float64}, _w::Vector{Float64})
     sim = m.simulationState
-	
+
 	if ModiaMath.isInitial(sim)
 	    m.T_next  = T1
     	m.engaged = true
         ModiaMath.setNextEvent!(sim, m.T_next)
     end
-		
-	
+
+
     if ModiaMath.isEvent(sim)
 	    # engaged = time < 100 or time >= 300
 
 		if t >= m.T_next
-            if t < T2		
+            if t < T2
 		        m.T_next  = T2
 			    m.engaged = false
             else
                 m.T_next  = Inf
-                m.engaged = true 				
+                m.engaged = true
 	        end
 	        ModiaMath.setNextEvent!(sim, m.T_next)
 		end
-		
+
 		is_constraint    = ModiaMath.get_is_constraint(sim)
-        is_constraint[3] = m.engaged 	
-    end 	
+        is_constraint[3] = m.engaged
+    end
 	engaged = m.engaged
 
 
@@ -129,9 +129,9 @@ function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vec
 	J1    = m.J1
 	J2    = m.J2
 	R     = m.R
-	C     = m.C 
+	C     = m.C
 	emf_k = m.emf_k
-  
+
     w1     = _x[1]
     w2     = _x[2]
     der_w1 = _derx[1]
@@ -150,12 +150,12 @@ function getModelResidues!(m::Model, t::Float64, _x::Vector{Float64}, _derx::Vec
     _r[2] = J2*der_w2 - tau
     _r[3] = engaged ? w2-w1 : tau
 
-    _w[1] = C_v 
-	_w[2] = C_i 
+    _w[1] = C_v
+	_w[2] = C_i
 	_w[3] = engaged ? 1.0 : 0.0
 
     #println("... time = $t, engaged = $engaged, w1 = $w1, w2 = $w2, r3 = $(_r[3])")
     return nothing
 end
- 
+
 end

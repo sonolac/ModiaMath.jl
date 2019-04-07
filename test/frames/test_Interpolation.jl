@@ -1,16 +1,16 @@
 module test_Interpolation
 
-import ModiaMath
+import ..ModiaMath
 
 #  Desired:
 #    using Test
 #    using LinearAlgebra
 #    using Unitful
-#  
+#
 #  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using ModiaMath.Test
-using ModiaMath.LinearAlgebra
-using ModiaMath.Unitful
+using ..ModiaMath.Test
+using ..ModiaMath.LinearAlgebra
+using ..ModiaMath.Unitful
 
 
 
@@ -27,7 +27,7 @@ t_end    = ModiaMath.t_pathEnd(path)
 println("t_end = ", t_end)
 println("path.t = ", path.t)
 
-@testset "ModiaMath.Frame: test interpolation" begin 
+@testset "ModiaMath.Frame: test interpolation" begin
     dist1 = norm(r[2] - r[1])
     dist2 = norm(r[3] - r[2])
 
@@ -43,7 +43,7 @@ end
 
 function checkInterpolation(path, t_end)
     dt       = 0.1
-    stopTime = 2.0 
+    stopTime = 2.0
     time     = 0.0
 
     while time <= stopTime + 1e-7

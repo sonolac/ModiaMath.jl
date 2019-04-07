@@ -5,15 +5,15 @@ Evaluate and test properties of StaticArrays
 """
 module test_StaticArrays
 
-import ModiaMath
+import ..ModiaMath
 
 #  Desired:
 #    using  StaticArrays
 #    import DataFrames
-#  
+#
 #  In order that these packages need not to be defined in the user environment, they are included via ModiaMath:
-using  ModiaMath.StaticArrays
-import ModiaMath.DataFrames
+using  ..ModiaMath.StaticArrays
+import ..ModiaMath.DataFrames
 
 
 
@@ -244,7 +244,7 @@ imin = indmin(elapsed)
 vmin = elapsed[imin]
 for i in 1:length(elapsed)
     table[i,2] = table[i,3] / vmin
-end 
+end
 
 println("\nnmax = ", nmax, "\n\ntable = ", table)
 

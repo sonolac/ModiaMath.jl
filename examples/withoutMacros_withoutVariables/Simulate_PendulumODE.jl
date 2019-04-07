@@ -2,16 +2,15 @@
 # Copyright 2017-2018, DLR Institute of System Dynamics and Control
 
 """
-    module Simulate_PendulumODE 
+    module Simulate_PendulumODE
 
 Simulate PendulumODE model.
 """
 module Simulate_PendulumODE
 
+import ..ModiaMath
 include(joinpath("models", "PendulumODE.jl"))
 import .PendulumODE
-import ModiaMath
-
 
 model  = PendulumODE.Model(L=0.8, m=0.5, d=0.2)
 result = ModiaMath.simulate!(model, stopTime=5.0, log=true)
